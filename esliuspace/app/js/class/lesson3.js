@@ -1,0 +1,3 @@
+{
+    let regex=new RegExp();
+}
