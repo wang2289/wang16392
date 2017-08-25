@@ -1,0 +1,49 @@
+{
+  "musicData": [
+    {
+      "name": "周杰伦 - 青花瓷",
+      "src": "http://ws.stream.qqmusic.qq.com/410316.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/21/300_albumpic_33021_0.jpg"
+    },
+    {
+      "name": "双笙/封茗囧菌 - 霜雪千年",
+      "src": "http://ws.stream.qqmusic.qq.com/106350833.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/20/300_albumpic_1373520_0.jpg"
+    },
+    {
+      "name": "双笙 - 浮生未歇",
+      "src": "http://ws.stream.qqmusic.qq.com/102973048.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/20/300_albumpic_1373520_0.jpg"
+    },
+    {
+      "name": "双笙/墨小竹 - 牵丝戏",
+      "src": "http://ws.stream.qqmusic.qq.com/106350850.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/20/300_albumpic_1373520_0.jpg"
+    },
+    {
+      "name": "许嵩 - 玫瑰花的葬礼",
+      "src": "http://ws.stream.qqmusic.qq.com/102433800.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/85/300_albumpic_35485_0.jpg"
+    },
+    {
+      "name": "许嵩 - 半城烟沙",
+      "src": "http://ws.stream.qqmusic.qq.com/739534.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/96/300_albumpic_62496_0.jpg"
+    },
+    {
+      "name": "许嵩/黄龄 - 惊鸿一面",
+      "src": "http://ws.stream.qqmusic.qq.com/7102716.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/97/300_albumpic_644097_0.jpg"
+    },
+    {
+      "name": "许嵩 - 有何不可",
+      "src": "http://ws.stream.qqmusic.qq.com/102296985.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/33/300_albumpic_37333_0.jpg"
+    },
+    {
+      "name": "李玉刚 - 刚好遇见你",
+      "src": "http://ws.stream.qqmusic.qq.com/109191643.m4a?fromtag=46",
+      "musicImgSrc": "http://imgcache.qq.com/music/photo/album_300/68/300_albumpic_1686568_0.jpg"
+    }
+  ]
+}
