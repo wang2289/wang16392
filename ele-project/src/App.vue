@@ -1,35 +1,30 @@
 <template>
   <div id="app">
-  
     <!-- 主界面部分 -->
     <transition name="show">
       <div class="index">
         <!-- 头部 -->
-        <VHeader></VHeader>
+        <v-header :seller="seller"></v-header>
         <div class="tab">
           <div class="item">
             <router-link to="/goods">商品</router-link>
           </div>
           <div class="item">
-            <router-link to="/find">评论</router-link>
+            <router-link to="/ratings">评论</router-link>
           </div>
           <div class="item">
-            <router-link to="/social">商家</router-link>
+            <router-link to="/seller">商家</router-link>
           </div>
         </div>
         <!-- router控制的Tab页内容 -->
         <router-view></router-view>
-  
         <!-- 尾部mini播放器 -->
-     
       </div>
     </transition>
-  
     <!-- 播放界面 -->
     <transition name="showIndex">
-
     </transition>
-  
+
     <!-- 隐藏的audio标签 -->
     <audio></audio>
   </div>
@@ -44,15 +39,18 @@ export default {
   components: {
     VHeader
   },
-  computed: {
-    musicData() {
-      return this.$store.state.musicData
-    }
-  },
   data() {
     return {
-      defaultSrc: 'http://m2.music.126.net/K1SFXCvWf8BO9VEpSvx2ew==/7967061257205150.mp3'
+      seller:{},
     }
+  },
+  created(){
+    this.axios.get('/api/seller').then(res =>{
+        console.log(res);
+        res=res.data;
+        this.seller = res.data;
+        console.log(this.seller);
+    });
   }
 }
 </script>
@@ -159,19 +157,26 @@ export default {
   }
   .tab {
       display: flex;
-      border-bottom: 1px solid #9E9E9E;
-
+      border-bottom: 1px solid rgba(7,17,27,0.1);
       a {
-        display: inline-block;
-        width: 50%;
+        display: block;
+        text-decoration: none;
+        width: 100%;
         color: #000;
+        font-size: 16px;
+        color: rgb(77,85,93)
       }
       a::after {
         background-color: rgba(255, 255, 255, .2);
         height: 1px;
         bottom: -2px;
       }
-
+      a.active{
+        color: rgb(240,20,20)
+      }
+      a:hover{
+         color: rgb(240,20,20)   
+      }
       .item {
         display: inline-block;
         flex: 1;
@@ -180,7 +185,6 @@ export default {
         padding-bottom: 10px;
       }
     }
-  
 }
 
 </style>

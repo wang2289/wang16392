@@ -1,7 +1,7 @@
 <template lang="html">
   <!--<transition name="showRouter">-->
     <!--<VScroll :data="musicData">-->
-      <div class="music-list">
+      <div class="goods">
         <!--<div v-for='(item,index) of musicData' class="music-item">
           <img :src="item.musicImgSrc" class="music-img"></img>
           <span class="music-name">{{ (index+1) + '.&nbsp; ' + item.name}}</span>
@@ -16,28 +16,14 @@
 <script>
 import VScroll from '@/base/scroll/scroll'
 export default {
-  name: 'musiclist',
+  name: 'goods',
   components: {
     VScroll
   },
   computed: {
-    musicData () {
-      return this.$store.state.musicData
-    },
-    DOM () {
-      return this.$store.state.DOM
-    },
-    isPlaying () {
-      return this.$store.state.isPlaying
-    }
   },
   watch: {
-    musicData: {
-      hander (val, oldVal) {
-        localStorage.musics = JSON.stringify(val)
-      },
-      deep: true
-    }
+
   },
   data () {
     return {
