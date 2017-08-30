@@ -58,6 +58,7 @@ export default {
 
 <style lang="less">
 @import "./common/style/base.less";
+@import "./common/style.css";
 .showIndex-enter-active {
   transition: all .4s ease-out;
 }

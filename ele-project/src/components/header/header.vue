@@ -19,13 +19,13 @@
       </div>
       <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{seller.supports.length}}个</span>
-        <i>></i>
+        <i class="icon-thumb_up"></i>
       </div>
     </div>
     <!--公告-->
     <div class="bulletin-wrapper" @click="showDetail"> 
         <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
-        <i>></i>
+        <i class="icon-thumb_up"></i>
     </div>
     <div class="background"> <img :src='seller.avatar' width="100%" height="100%"></div>
     <!--弹窗-->
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="detail-close" @click="closeDetail"><i>X</i></div>
+        <div class="detail-close" @click="closeDetail"><i class="icon-remove_circle_outline"> </i></div>
     </div>
      </transition> 
   </div>
@@ -201,6 +201,8 @@ export default {
     }
     i {
       font-size: 10px;
+      vertical-align: -1px;
+      margin-left: 2px;
     }
   }
   .bulletin-wrapper {
@@ -230,7 +232,7 @@ export default {
       color: #fff;
       position: absolute;
       right: 12px;
-      top: 3px;
+      top: 10px;
     }
   }
   .background {
