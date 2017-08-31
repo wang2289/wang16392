@@ -44,12 +44,14 @@ export default {
 .fade-leave-active {
   transition: opacity .5s;
   transform: translate3d(0, 0, 0);
+  .inner {
+    transform: rotate(0deg)
+  }
 }
 
 .fade-enter,
 .fade-leave-to
 /* .fade-leave-active in below version 2.1.8 */
-
 {
   opacity: 0;
   transform: translate3d(24px, 0, 0);
@@ -63,7 +65,7 @@ export default {
   .cart-decrease {
     display: inline-block;
     padding: 6px;
-    line-height: 24px;
+    line-height: 20px;
     font-size: 20px;
     color: rgb(0, 160, 220);
     transition: all 0.4s linear;
@@ -73,7 +75,6 @@ export default {
       font-size: 20px;
       color: rgb(0, 160, 220);
       transition: all 0.4s linear;
-      transform: rotate(0)
     }
   }
   .cart-count {

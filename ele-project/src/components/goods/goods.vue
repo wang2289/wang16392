@@ -142,7 +142,7 @@ export default {
     width: 80px;
     background: #f3f5f7;
     ul{
-      text-align: center;
+     /* text-align: center;*/
     }
     li {
       display: table;
