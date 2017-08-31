@@ -17,7 +17,7 @@
           </div>
         </div>
         <!-- router控制的Tab页内容 -->
-        <router-view></router-view>
+        <router-view :seller="seller"></router-view>
         <!-- 尾部mini播放器 -->
       </div>
     </transition>
@@ -103,7 +103,6 @@ export default {
 
 #app,
 .index {
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
