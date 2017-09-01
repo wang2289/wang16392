@@ -22,12 +22,14 @@ export default {
 
   },
   methods: {
-    addCart() {
+    addCart(event) {
       if (!this.food.count) {
         Vue.set(this.food, 'count', 1)
       } else {
         this.food.count++;
       }
+      // console.log(event.toElement);
+      this.$emit("cartadd",event.toElement);
     },
     decreaseCart() {
       if (this.food.count) {
@@ -42,6 +44,7 @@ export default {
 <style lang="less" scoped >
 .fade-enter-active,
 .fade-leave-active {
+  /* 结束状态*/
   transition: opacity .5s;
   transform: translate3d(0, 0, 0);
   .inner {
@@ -51,7 +54,7 @@ export default {
 
 .fade-enter,
 .fade-leave-to
-/* .fade-leave-active in below version 2.1.8 */
+/* 初始状态*/
 {
   opacity: 0;
   transform: translate3d(24px, 0, 0);

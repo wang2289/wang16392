@@ -17,6 +17,20 @@
             </div>
           </div>
       </div>
+      <div class="ball-container">
+        <!--<transition-group name="list" tag="p">
+          <span v-for="item in balls" v-bind:key="item.show" class="list-item">
+            {{item.show}}
+          </span>
+        </transition-group>-->
+        <transition-group v-on:before-enter="beforeEnter"
+  v-on:enter="enter"
+  v-on:after-enter="afterEnter" tag="div">
+        <div v-for="ball in balls" v-show="ball.show"  v-bind:key="ball.show" class="ball">
+          <div class='inner inner-hook'></div>
+        </div>
+        </transition-group>
+      </div>
     </div>
 </template>
 
@@ -25,13 +39,29 @@
 
 export default {
   name: 'shopcar',
+  data() {
+    return {
+      balls: [{
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }],
+      dropBall: []
+    }
+  },
   props: {
     selectFoods: {
       type: Array,
       default() {
         return [{
-          price:1,
-          count:1
+          price: 1,
+          count: 1
         }];
       }
     },
@@ -59,23 +89,80 @@ export default {
       });
       return count;
     },
-    payDesc(){
-      if(this.totalprice === 0){
-        return `￥${deliveryPrice}元起送`;
-      }else if(this.totalprice<this.minPrice){
+    payDesc() {
+      if (this.totalprice === 0) {
+        return `￥${this.minPrice}元起送`;
+      } else if (this.totalprice < this.minPrice) {
         let diff = this.minPrice - this.totalprice;
         return `还差￥${diff}元起送`;
-      }else{
+      } else {
         return '去结算';
       }
     },
-    payclass(){
-      if(this.totalprice>=this.minPrice){
+    payclass() {
+      if (this.totalprice >= this.minPrice) {
         return 'enough'
-      }else{
-         return 'not-enough'
+      } else {
+        return 'not-enough'
       }
     }
+  },
+  methods: {
+    drop(el) {
+      console.log(el);
+      for (let i = 0; i < this.balls.length; i++) {
+        let ball = this.balls[i];
+        if (!ball.show) {
+          ball.show = true;
+          ball.el = el;
+          this.dropBall.push(ball);
+          
+          return;
+        }
+      } 
+    },
+    // transition: {
+    //   drop: {
+        beforeEnter(el) {
+          let count = this.balls.length;
+          while (count--) {
+            let ball = this.balls[count];
+            if (ball.show) {
+              let rect = ball.el.getBoundingClientRect();
+              //点击的球相对于视口的x,y的值
+              let x = rect.left - 32;
+              let y = -(window.innerHeight - rect.top - 22);
+              el.style.display = "";
+              el.style.webkitTransfrom = `translate3d(0,${y}px,0)`;
+              el.style.transfrom = `translate3d(0,${y}px,0)`;
+              // console.log(el)
+              let inner = el.getElementsByClassName('inner-hook')[0];
+              inner.style.webkitTransfrom = `translate3d(${x}px,0,0)`;
+              inner.style.transfrom = `translate3d(${x}px,0,0)`;
+            }
+          }
+        },
+        enter(el) {
+          /*触发浏览器重绘*/
+          let rf = el.offsetHeight;
+          this.$nextTick(() => {
+            el.style.webkitTransfrom = 'translate3d(0,0,0)';
+            el.style.transfrom = 'translate3d(0,0,0)';
+            let inner = el.getElementsByClassName('inner-hook')[0];
+            inner.style.webkitTransfrom = 'translate3d(0,0,0)';
+            inner.style.transfrom = 'translate3d(0,0,0)';
+          })
+        },
+        afterEnter(el) {
+          // console.log(this.dropBall[0]);
+          let ball = this.dropBall[0];
+          if (ball) {
+            ball.show = false;
+            el.style.display = "none";
+          }
+        }
+    //   }
+    // }
   }
 }
 </script>
@@ -174,12 +261,30 @@ export default {
         font-weight: 700;
         background: #2b333b;
         color: rgba(255, 255, 255, 0.4);
-        &.not-enough{
+        &.not-enough {
           background: #2b333b;
         }
-        &.enough{
+        &.enough {
           background: #00b43c;
-          color: rgba(255, 255, 255,1);
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+  }
+  .ball-container {
+    .ball {
+      position: fixed;
+      left: 32px;
+      bottom: 22px;
+      z-index: 200;
+      &.v-enter {
+        transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+        .inner {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: rgb(0, 160, 220);
+          transition: all 0.4s linear;
         }
       }
     }

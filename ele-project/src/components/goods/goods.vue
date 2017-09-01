@@ -30,7 +30,7 @@
                             <span class="old" v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
                           </div>
                           <div class="cartcontrol-wrapper">
-                            <Cartcontrol :food="food"></Cartcontrol>
+                            <Cartcontrol  v-on:cartadd='cartadds' :food="food"></Cartcontrol>
                           </div>
                         </div>       
                     </li>
@@ -38,7 +38,7 @@
               </li>
             </ul>
         </div>
-        <shopcar :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcar>
+        <shopcar ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcar>
     </div>
 </template>
 
@@ -75,6 +75,17 @@ export default {
         }
       }
       return 0;
+    },
+    selectFoods(){
+      let foods=[];
+      this.goods.forEach((good)=>{
+          good.foods.forEach((food)=>{
+              if(food.count){
+                foods.push(food);
+              }
+          })
+      })
+      return foods;
     }
   },
   created() {
@@ -91,6 +102,9 @@ export default {
     });
   },
   methods:{
+    cartadds: function (target) {
+      this._drop(target);
+    },
     selectMenu(index){
       // if(!event._constructed){
       //     return;
@@ -98,6 +112,11 @@ export default {
       let foodlist = document.querySelectorAll('.food-list-hook');
       let el = foodlist[index];
       this.foodsScroll.scrollToElement(el,300);
+    },
+    _drop(target){
+      this.$nextTick(()=>{
+        this.$refs.shopcart.drop(target);
+      })
     },
     _initScroll(){
       this.meunScroll = new BScroll('.menu-wrapper',{
