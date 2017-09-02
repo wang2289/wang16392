@@ -29,7 +29,7 @@
     </div>
     <div class="background"> <img :src='seller.avatar' width="100%" height="100%"></div>
     <!--弹窗-->
-     <transition name="showRouter"> 
+    <transition name="showRouter"> 
     <div v-show="detailShow" class="detail"> 
         <div class="detail-wrapper clearfix"> 
             <div class="detail-main"> 
@@ -60,7 +60,7 @@
         </div>
         <div class="detail-close" @click="closeDetail"><i class="icon-remove_circle_outline"> </i></div>
     </div>
-     </transition> 
+    </transition> 
   </div>
 </template>
 

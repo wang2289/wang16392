@@ -141,7 +141,7 @@ export default {
           height += item.clientHeight;
           this.listHeight.push(height);
         }
-        console.log(this.listHeight);
+        // console.log(this.listHeight);
     }
   }
 }
