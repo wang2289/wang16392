@@ -109,7 +109,6 @@ export default {
   computed: {
     totalprice() {
       let total = 0;
-      console.log(this.selectFoods);
       this.selectFoods.forEach((food) => {
         total += food.price * food.count;
       });

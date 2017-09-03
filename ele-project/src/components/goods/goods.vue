@@ -14,7 +14,7 @@
               <li v-for='item in goods' class="food-list food-list-hook">
                 <h1>{{item.name}}</h1>
                 <ul> 
-                    <li v-for='food in item.foods' class="food-item"> 
+                    <li @click='selectFood(food)' v-for='food in item.foods' class="food-item"> 
                         <div class="icon">
                           <img width="57" height="57" :src="food.icon">
                         </div> 
@@ -39,11 +39,15 @@
             </ul>
         </div>
         <shopcar ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcar>
+        <transition name="showRouter">
+        <food :food="selectedFood" ref='food'></food>
+        </transition>
     </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll';
+import food from '@/components/food/food'
 import shopcar from '@/components/shopcar/shopcar'
 import Cartcontrol from '@/components/cartcontrol/cartcontrol'
 export default {
@@ -55,13 +59,15 @@ export default {
   },
   components:{
      shopcar,
+     food,
      Cartcontrol
   },
   data() {
     return {
       goods: [],
       listHeight:[],
-      scrollY:0
+      scrollY:0,
+      selectedFood:{}
     }
   },
   computed:{
@@ -104,6 +110,10 @@ export default {
   methods:{
     cartadds: function (target) {
       this._drop(target);
+    },
+    selectFood(food){
+      this.selectedFood = food;
+      this.$refs.food.show();
     },
     selectMenu(index){
       // if(!event._constructed){
@@ -149,6 +159,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less" >
+.showRouter-enter-active {
+  transition: all .4s ease;
+}
+.showRouter-leave-active {
+  transition: all 0.4 ease;
+}
+.showRouter-enter, .showRouter-leave-active {
+  transform: translateX(-100%);
+  opacity: 0;
+}
 .goods {
   display: flex;
   position: absolute;
@@ -282,5 +302,6 @@ export default {
       }
     }
   }
+
 }
 </style>
