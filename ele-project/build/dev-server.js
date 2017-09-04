@@ -107,7 +107,7 @@ devMiddleware.waitUntilValid(() => {
   }
   _resolve()
 })
-// var port = process.argv[2] || 3334;
+// var port = process.argv[2] || 8884;
 var server = app.listen(port)
 
 module.exports = {

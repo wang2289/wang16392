@@ -31,7 +31,7 @@
              <Split></Split>
              <div class="rating"> 
                 <h1 class="title">商品评价</h1>
-                <rating-select v-on:ratselect='ratingselect' v-on:contentto='contenttoggle' :select-type='selectType' :only-content='onlyContent' :desc="desc" :ratings='food.ratings'></rating-select>
+                <rating-select v-on:ratingselect='ratingselects' v-on:contenttoggle='contenttoggles' :select-type='selectType' :only-content='onlyContent' :desc="desc" :ratings='food.ratings'></rating-select>
                 <div class="rating-wrapper"> 
                     <ul v-show="food.ratings && food.ratings.length">
                       <li v-show="needShow(rating.rateType,rating.text)" v-for='rating in food.ratings' class="item"> 
@@ -58,7 +58,7 @@ import BScroll from 'better-scroll';
 import Vue from 'vue';
 import Cartcontrol from '@/components/cartcontrol/cartcontrol'
 import Split from '@/components/split/split'
-import RatingSelect from '@/components/ratings/ratings'
+import RatingSelect from '@/components/ratingselect/ratingselect'
 
 
 const positive = 0 ;
@@ -117,13 +117,15 @@ export default {
         return type === this.selectType;
       }
     },
-    ratingselect: function (type) {
+    ratingselects: function (type) {
+      // console.log(type);
       this.selectType = type;
       this.$nextTick(()=>{
           this.scroll.refresh();
       })
     },
-    contenttoggle: function (target) {
+    contenttoggles: function (target) {
+      // console.log(target);
       this.onlyContent = target;
       this.$nextTick(()=>{
           this.scroll.refresh();
