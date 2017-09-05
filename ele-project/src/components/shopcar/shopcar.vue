@@ -24,15 +24,17 @@
             {{item.show}}
           </span>
         </transition-group>-->
-        <transition-group v-on:before-enter="beforeEnter"
-        v-on:enter="enter"
-        v-on:after-enter="afterEnter" tag="div">
-        <div v-for="ball in balls" v-show="ball.show"  v-bind:key="ball.show" class="ball">
-          <div class='inner inner-hook'></div>
+        <div  v-for="ball in balls">
+          <transition  name="fade"  v-on:before-enter="beforeEnter"
+          v-on:enter="enter"
+          v-on:after-enter="afterEnter" tag="div">
+            <div  v-show="ball.show"  v-bind:key="ball.show" class="ball">
+              <div class='inner inner-hook'></div>
+            </div>
+          </transition>
         </div>
-        </transition-group>
       </div>
-      <transition name="showRouter"> 
+      <transition name="fade"> 
       <div class="shopcart-list" v-show='listshow'> 
           <div class="list-header"> 
             <h1 class="title">购物车</h1>
@@ -214,7 +216,7 @@ export default {
             }
           }
         },
-        enter(el) {
+        enter(el,done) {
           /*触发浏览器重绘*/
           let rf = el.offsetHeight;
           this.$nextTick(() => {
@@ -223,6 +225,7 @@ export default {
             let inner = el.getElementsByClassName('inner-hook')[0];
             inner.style.webkitTransfrom = 'translate3d(0,0,0)';
             inner.style.transfrom = 'translate3d(0,0,0)';
+            el.addEventListener('transitionend',done)
           })
         },
         afterEnter(el) {
@@ -241,6 +244,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped >
+
+.fade-enter-active {
+  transition: all .3s ease-in-out;
+}
+.fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-enter, .fade-leave-active {
+  transform: translateY(100%);
+  opacity: 0;
+}
 .showRouter-enter-active,
 .showRouter-leave-active {
   /* 结束状态*/
@@ -360,19 +374,21 @@ export default {
         }
       }
       .ball-container {
-        .ball {
-          position: fixed;
-          left: 32px;
-          bottom: 22px;
-          z-index: 200;
-          &.v-enter {
-            transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
-            .inner {
-              width: 16px;
-              height: 16px;
-              border-radius: 50%;
-              background: rgb(0, 160, 220);
-              transition: all 0.4s linear;
+        div{
+          .ball {
+            position: fixed;
+            left: 32px;
+            bottom: 22px;
+            z-index: 200;
+            &.v-enter {
+              transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+              .inner {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: rgb(0, 160, 220);
+                transition: all 0.4s linear;
+              }
             }
           }
         }

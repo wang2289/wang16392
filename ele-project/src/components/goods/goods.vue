@@ -1,4 +1,5 @@
 <template lang="html">
+<transition name="fade">
     <div class="goods">
         <div class="menu-wrapper" ref="menuwrapper">
           <ul>
@@ -39,10 +40,9 @@
             </ul>
         </div>
         <shopcar ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcar>
-        <transition name="showRouter">
         <food :food="selectedFood" ref='food'></food>
-        </transition>
     </div>
+</transition>    
 </template>
 
 <script>
@@ -159,6 +159,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less" >
+.fade-enter-active {
+  transition: all .3s ease-in-out;
+}
+// .fade-leave-active {
+//   transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+// }
+.fade-enter {
+  transform: translateX(150px);
+  opacity: 0;
+}
 .showRouter-enter-active {
   transition: all .4s ease;
 }

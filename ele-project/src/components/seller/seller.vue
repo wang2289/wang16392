@@ -1,4 +1,5 @@
 <template lang="html">
+<transition name="fade">
     <div class="seller">
         <div class="seller-content">
           <div class="overview">
@@ -66,6 +67,7 @@
           </div>
         </div>
     </div>
+</transition>
 </template>
 
 <script>
@@ -81,7 +83,9 @@ export default {
   },
   data(){
     return{
-      favorite:false,
+      favorite:(()=>{
+        return this.loadfrom(this.seller.id,'favorite',false);
+      })(),
     }
   },
   computed:{
@@ -101,6 +105,34 @@ export default {
   methods:{
     togglefavor(){
       this.favorite = !this.favorite;
+      localStorage.favorite = this.favorite;
+      this.saveTolocal(this.seller.id,'favorite',this.favorite)
+    },
+    saveTolocal(id,key,value){
+      let seller=window.localStorage._seller_;
+      if(!seller){
+        seller = {};
+        seller[id] = {};
+      }else{
+        seller = JSON.parse(seller);
+        if(!seller[id]){
+            seller[id] = {};
+        }
+      }
+      seller[id][key]=value;
+      window.localStorage._seller_ = JSON.stringify(seller)
+    },
+    loadfrom(id,key,value){
+      let seller=window.localStorage._seller_;
+      if(!seller){
+        return value;
+      }
+      seller = JSON.parse(seller)[id];
+      if(!seller){
+        return value;
+      }
+      let ret = seller[key];
+      return ret || value;
     },
     initScroll(){
       if(!this.scroll){
@@ -129,6 +161,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  lang="less" scoped  >
+.fade-enter-active {
+  transition: all .3s ease-in-out;
+}
+// .fade-leave-active {
+//   transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+// }
+.fade-enter {
+  transform: translateX(150px);
+  opacity: 0;
+}
 .seller {
   position: absolute;
   top: 174px;
@@ -194,7 +236,7 @@ export default {
       .favorite{
         position: absolute;
         width: 50px;
-        right:5px;
+        right:11px;
         top:18px;
         text-align: center;
         .icon-favorite{

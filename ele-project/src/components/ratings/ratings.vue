@@ -1,4 +1,5 @@
 <template lang="html">
+<transition name="fade">
     <div class="ratings">
       <div class="ratings-content"> 
         <div class="overview"> 
@@ -53,6 +54,7 @@
         </div>
       </div>
     </div>
+    </transition>
 </template>
 
 <script>
@@ -147,6 +149,16 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  lang="less" scoped >
+.fade-enter-active {
+  transition: all .3s ease-in-out;
+}
+// .fade-leave-active {
+//   transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+// }
+.fade-enter {
+  transform: translateX(150px);
+ opacity: 0;
+}
 .ratings {
   position: absolute;
   top: 174px;
