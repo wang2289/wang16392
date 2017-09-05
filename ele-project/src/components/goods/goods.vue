@@ -1,5 +1,5 @@
 <template lang="html">
-<transition name="fade">
+<!-- <transition name="fade"> -->
     <div class="goods">
         <div class="menu-wrapper" ref="menuwrapper">
           <ul>
@@ -40,9 +40,9 @@
             </ul>
         </div>
         <shopcar ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcar>
-        <food :food="selectedFood" ref='food'></food>
+        <food :food="selectedFood" ref='food' v-on:foodadds="foodartadd"></food>
     </div>
-</transition>    
+<!-- </transition>  -->   
 </template>
 
 <script>
@@ -111,6 +111,9 @@ export default {
     cartadds: function (target) {
       this._drop(target);
     },
+    foodartadd:function(target){
+      this._drop(target);
+    },
     selectFood(food){
       this.selectedFood = food;
       this.$refs.food.show();
@@ -124,6 +127,7 @@ export default {
       this.foodsScroll.scrollToElement(el,300);
     },
     _drop(target){
+      //体验优化，异步执行下落动画
       this.$nextTick(()=>{
         this.$refs.shopcart.drop(target);
       })

@@ -19,16 +19,11 @@
           </div>
       </div>
       <div class="ball-container">
-        <!--<transition-group name="list" tag="p">
-          <span v-for="item in balls" v-bind:key="item.show" class="list-item">
-            {{item.show}}
-          </span>
-        </transition-group>-->
         <div  v-for="ball in balls">
-          <transition  name="fade"  v-on:before-enter="beforeEnter"
-          v-on:enter="enter"
-          v-on:after-enter="afterEnter" tag="div">
-            <div  v-show="ball.show"  v-bind:key="ball.show" class="ball">
+          <transition  name="drop"  @before-enter="beforeEnter"
+          @enter="enter"
+          @after-enter="afterEnter">
+            <div  v-show="ball.show"  class="ball">
               <div class='inner inner-hook'></div>
             </div>
           </transition>
@@ -48,7 +43,7 @@
                         <span>￥{{food.price*food.count}}</span>
                     </div>
                     <div class="cartontrol-warpper"> 
-                        <Cartcontrol :food="food"></Cartcontrol>
+                        <Cartcontrol :food="food" v-on:cartadd='shopcartadds'></Cartcontrol>
                     </div>
                 </li>
             </ul>
@@ -162,8 +157,11 @@ export default {
     }
   },
   methods: {
+    shopcartadds(el){
+      this.drop(el);
+    },
     drop(el) {
-      console.log(el);
+      // console.log(el);
       for (let i = 0; i < this.balls.length; i++) {
         let ball = this.balls[i];
         if (!ball.show) {
@@ -195,49 +193,43 @@ export default {
       }
       window.alert(`支付${this.totalprice}`);
     },
-    // transition: {
-    //   drop: {
-        beforeEnter(el) {
-          let count = this.balls.length;
-          while (count--) {
-            let ball = this.balls[count];
-            if (ball.show) {
-              let rect = ball.el.getBoundingClientRect();
-              //点击的球相对于视口的x,y的值
-              let x = rect.left - 32;
-              let y = (window.innerHeight - rect.top - 22);
-              el.style.display = "";
-              el.style.webkitTransfrom = `translate3d(0,${y}px,0)`;
-              el.style.transfrom = `translate3d(0,${y}px,0)`;
-              // console.log(el)
-              let inner = el.getElementsByClassName('inner-hook')[0];
-              inner.style.webkitTransfrom = `translate3d(${x}px,0,0)`;
-              inner.style.transfrom = `translate3d(${x}px,0,0)`;
-            }
-          }
-        },
-        enter(el,done) {
-          /*触发浏览器重绘*/
-          let rf = el.offsetHeight;
-          this.$nextTick(() => {
-            el.style.webkitTransfrom = 'translate3d(0,0,0)';
-            el.style.transfrom = 'translate3d(0,0,0)';
-            let inner = el.getElementsByClassName('inner-hook')[0];
-            inner.style.webkitTransfrom = 'translate3d(0,0,0)';
-            inner.style.transfrom = 'translate3d(0,0,0)';
-            el.addEventListener('transitionend',done)
-          })
-        },
-        afterEnter(el) {
-          console.log(this.dropBall);
-          let ball = this.dropBall[0];
-          if (ball) {
-            ball.show = false;
-            el.style.display = "none";
-          }
+    beforeEnter(el) {
+      let count = this.balls.length;
+      while (count--) {
+        let ball = this.balls[count];
+        if (ball.show) {
+          let rect = ball.el.getBoundingClientRect();
+          //点击的球相对于视口的x,y的值
+          let x = rect.left - 32;
+          let y = -(window.innerHeight - rect.top - 22);
+          el.style.display = "";
+          el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+          el.style.transform = `translate3d(0,${y}px,0)`;
+          let inner = el.getElementsByClassName('inner-hook')[0];
+          inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+          inner.style.transform= `translate3d(${x}px,0,0)`;
         }
-    //   }
-    // }
+      }
+    },
+    enter(el,done) {
+      /*触发浏览器重绘*/
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        el.style.webkitTransform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';
+        let inner = el.getElementsByClassName('inner-hook')[0];
+        inner.style.webkitTransform = 'translate3d(0,0,0)';
+        inner.style.transform = 'translate3d(0,0,0)';
+        el.addEventListener('transitionend',done)
+      })
+    },
+    afterEnter(el) {
+      let ball = this.dropBall.shift();
+      if (ball) {
+        ball.show = false;
+        el.style.display = "none";
+      }
+    }
   }
 }
 </script>
@@ -374,24 +366,23 @@ export default {
         }
       }
       .ball-container {
-        div{
+        
           .ball {
             position: fixed;
             left: 32px;
             bottom: 22px;
             z-index: 200;
-            &.v-enter {
-              transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
-              .inner {
+            transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+            
+            .inner {
                 width: 16px;
                 height: 16px;
                 border-radius: 50%;
                 background: rgb(0, 160, 220);
                 transition: all 0.4s linear;
-              }
             }
+           
           }
-        }
       }
       .shopcart-list{
         position: absolute;

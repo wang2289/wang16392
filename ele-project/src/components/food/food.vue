@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="cartcontrol-wrapeer"> 
-                  <Cartcontrol :food="food"></Cartcontrol>
+                  <Cartcontrol v-on:cartadd='cartadds' :food="food"></Cartcontrol>
                 </div>
                 <div  @click.stop.prevent='addFirst' class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
             </div>
@@ -89,8 +89,12 @@ export default {
   },
   methods:{
     addFirst(event){
-      this.$emit("cartadd",event.toElement);
+      // this.$emit("cartadd",event.toElement);
+      // this.$emit("cartadd",event.toElement);
       Vue.set(this.food,'count',1);
+    },
+    cartadds: function (target) {
+      this.$emit("foodadds",target);
     },
     show(){
       this.showFlag = true;
