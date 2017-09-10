@@ -1,6 +1,8 @@
 <template lang="html">
 <transition name="fade">
+
     <div class="seller">
+     <VScroll >
         <div class="seller-content">
           <div class="overview">
             <h1 class="title">{{seller.name}}</h1>
@@ -66,7 +68,9 @@
             </ul>
           </div>
         </div>
+         </VScroll>
     </div>
+ 
 </transition>
 </template>
 
@@ -75,10 +79,12 @@ import BScroll from 'better-scroll';
 import Star from '@/components/star/star.vue'
 import Split from '@/components/split/split'
 
+import VScroll from '@/base/scroll/scroll'
 export default {
   name: 'seller',
   components: {
     Split,
+    VScroll,
     Star
   },
   data(){
@@ -177,8 +183,10 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  // overflow: hidden;
+/*  overflow: hidden;*/
   .seller-content {
+/*    height: 100%;
+  overflow: scroll;*/
     .overview {
       padding: 18px;
       position: relative;
@@ -275,7 +283,7 @@ export default {
       }
     }
     .supports {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
       li {
         padding: 16px 12px;
