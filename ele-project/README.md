@@ -4,7 +4,7 @@ Vue全家桶打造的外卖售卖平台
 
 # 预览
 
-在线预览地址:http://47.93.13.5/dist/dist/index.html#/goods
+在线预览地址:http://wangjinwen.cn/dist/dist/index.html#/goods
 
 演示： 暂定
 
